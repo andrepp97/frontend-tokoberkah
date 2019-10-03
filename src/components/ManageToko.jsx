@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import {connect} from 'react-redux'
+import { ubahUser } from '../redux/actions'
 import 'bootstrap/dist/css/bootstrap.css';
 
 
@@ -28,13 +30,13 @@ class ManageToko extends Component {
      }
 
     componentDidMount() {
+        this.props.ubahUser('Batman Ngantuk')
         this.getData()
     }
 
     getData = () => {
         axios.get('http://localhost:1997/toko')
             .then((res) => {
-                console.log('masuk then')
                 console.log(res.data)
                 this.setState({ listToko: res.data })
 
@@ -46,7 +48,6 @@ class ManageToko extends Component {
                         console.log(err.response)
                     })
             }).catch((err) => {
-                console.log('masuk catch')
                 console.log(err.response)
             })
     }
@@ -347,10 +348,11 @@ class ManageToko extends Component {
 
 
     render() {
+        console.log(this.props.username)
         return (
             <div className='px-5'>
                 <center>
-                    <h1 className='my-5'>Manage Toko</h1>
+                    <h1 className='my-5'>Manage Toko ({this.props.username})</h1>
                     <table>
                         <thead>
                             <tr>
@@ -444,4 +446,10 @@ class ManageToko extends Component {
     }
 }
 
-export default ManageToko
+const mapStateToProps = state => {
+    return {
+        username: state.user
+    }
+}
+
+export default connect(mapStateToProps, {ubahUser})(ManageToko)

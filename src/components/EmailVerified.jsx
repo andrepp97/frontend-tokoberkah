@@ -26,25 +26,6 @@ class EmailVerified extends Component {
     
 
     render() {
-        if (this.state.loading) {
-            return (
-                <div className='container pt-5 text-center'>
-                    <h1 className='mt-5'>Verifying Your Email, Please Wait</h1>
-                    <div className='d-flex justify-content-center my-4'>
-                        <div className="spinner-grow text-primary" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                        <div className="spinner-grow text-success mx-2" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                        <div className="spinner-grow text-info" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                    </div>
-                </div>
-            )
-        }
-
         return (
             <div className="container pt-5 text-center">
                 <h1 className='mt-5'>{this.state.message}</h1>

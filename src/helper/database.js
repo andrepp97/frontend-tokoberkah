@@ -1,0 +1,1 @@
+export const urlApi = 'https://api-tokoberkah.herokuapp.com/'

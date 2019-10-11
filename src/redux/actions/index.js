@@ -4,3 +4,7 @@ export const ubahUser = (name) => {
         name
     }
 }
+
+export * from './registerActions'
+export * from './loginActions'
+export * from './UserActions'

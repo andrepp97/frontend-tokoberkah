@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import {connect} from 'react-redux'
 import { ubahUser } from '../redux/actions'
-import 'bootstrap/dist/css/bootstrap.css';
+import { urlApi } from "../helper/database"
 
 
 class ManageToko extends Component {
@@ -35,12 +35,12 @@ class ManageToko extends Component {
     }
 
     getData = () => {
-        axios.get('http://localhost:1997/toko')
+        axios.get(urlApi + 'toko/toko')
             .then((res) => {
                 console.log(res.data)
                 this.setState({ listToko: res.data })
 
-                axios.get('http://localhost:1997/kota')
+                axios.get(urlApi + 'kota/getkota')
                     .then((res) => {
                         this.setState({ listKota: res.data })
                     })
@@ -195,7 +195,7 @@ class ManageToko extends Component {
 
     // TOKO BUTTONS
     btnAddClick = () => {
-        axios.post('http://localhost:1997/addtoko', {
+        axios.post(urlApi + 'toko/addtoko', {
             nama: this.state.inputNamaAdd,
             alamat: this.state.inputAlamatAdd,
             kotaId: this.state.inputKotaAdd,
@@ -210,7 +210,7 @@ class ManageToko extends Component {
     }
 
     btnEditClick = (idBro) => {
-        axios.put('http://localhost:1997/edittoko/' + idBro, {
+        axios.put(urlApi + 'toko/edittoko/' + idBro, {
             nama: this.state.editNama,
             alamat: this.state.editAlamat,
             kotaId: this.state.editKota,
@@ -227,7 +227,7 @@ class ManageToko extends Component {
 
     btnDeleteClick = (id) => {
         if (window.confirm('Are u Sure ?')) {
-            axios.delete('http://localhost:1997/deletetoko/' + id)
+            axios.delete(urlApi + 'toko/deletetoko/' + id)
                 .then((res) => {
                     console.log(res.data)
                     this.getData()
@@ -242,7 +242,7 @@ class ManageToko extends Component {
 
     // IMAGES
     selectTokoImg = (idToko) => {
-        axios.get('http://localhost:1997/tokoimg/' + idToko)
+        axios.get(urlApi + 'toko/tokoimg/' + idToko)
             .then(res => {
                 this.setState({ listImgToko: res.data })
                 console.log(this.state.listImgToko)
@@ -272,7 +272,7 @@ class ManageToko extends Component {
             }
             formdata.append('data', JSON.stringify(data))
 
-            axios.post('http://localhost:1997/addtokoimg', formdata, options)
+            axios.post(urlApi + 'toko/addtokoimg', formdata, options)
                 .then( res => {
                     console.log(res.data)
                     this.setState({ imagesTokoAdd: null })
@@ -298,7 +298,7 @@ class ManageToko extends Component {
 
             formdata.append('image', this.state.imageTokoEdit[0])
 
-            axios.put('http://localhost:1997/editimg/' + id, formdata, options)
+            axios.put(urlApi + 'toko/editimg/' + id, formdata, options)
                 .then(res => {
                     console.log(res.data)
                     this.setState({ imageTokoEdit: null, selectedImgId: 0 })
@@ -314,7 +314,7 @@ class ManageToko extends Component {
 
     btnDelImg = (id, path, tokoId) => {
         if (window.confirm('Are u Sure ?')) {
-            axios.post('http://localhost:1997/deleteimg', {
+            axios.post(urlApi + 'toko/deleteimg', {
                 id, path
             })
                 .then((res) => {
@@ -350,9 +350,9 @@ class ManageToko extends Component {
     render() {
         console.log(this.props.username)
         return (
-            <div className='px-5'>
+            <div className='container py-5'>
                 <center>
-                    <h1 className='my-5'>Manage Toko ({this.props.username})</h1>
+                    <h2 className='my-5'>Manage Toko ({this.props.username})</h2>
                     <table>
                         <thead>
                             <tr>
@@ -410,7 +410,7 @@ class ManageToko extends Component {
                         </tfoot>
                     </table>
 
-                    <h1 className='text-center mt-5'>Manage Image</h1>
+                    <h2 className='text-center mt-5'>Manage Image</h2>
                     <table className='mb-5'>
                         <thead>
                             <tr>

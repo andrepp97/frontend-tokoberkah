@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import axios from 'axios'
-import { urlApi } from '../helper/database'
 import queryString from 'query-string'
+import { connect } from 'react-redux'
 import { confirmLogin } from "../redux/actions"
-import { connect } from 'react-redux';
+import { urlApi } from '../helper/database'
 
 
 class EmailVerified extends Component {
